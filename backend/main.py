@@ -53,6 +53,11 @@ app.add_middleware(
 ALLOWED_EXTENSIONS = {".pdf", ".docx"}
 
 
+@app.get("/")
+def home():
+    return {"message": "HireSense AI backend is running"}
+
+
 def check_file_type(filename: str) -> bool:
     return any(filename.lower().endswith(ext) for ext in ALLOWED_EXTENSIONS)
 
