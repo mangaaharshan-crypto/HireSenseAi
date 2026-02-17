@@ -7,6 +7,7 @@ import {
   Alert,
   ActivityIndicator,
   ScrollView,
+  Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
 import * as DocumentPicker from "expo-document-picker";
@@ -25,13 +26,32 @@ export default function Upload() {
 
   const pick = async () => {
     try {
-      const result = await DocumentPicker.getDocumentAsync({
-        type: ALLOWED,
-        copyToCacheDirectory: true,
-      });
-      if (result.canceled) return;
-      const f = result.assets[0];
-      setFile({ name: f.name, uri: f.uri, mimeType: f.mimeType || "application/pdf" });
+      if (Platform.OS === "web") {
+        // Web file input
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".pdf,.docx";
+        input.onchange = (e) => {
+          const selectedFile = e.target.files[0];
+          if (selectedFile) {
+            setFile({
+              name: selectedFile.name,
+              uri: URL.createObjectURL(selectedFile),
+              mimeType: selectedFile.type,
+              file: selectedFile, // Store the actual file object for web
+            });
+          }
+        };
+        input.click();
+      } else {
+        const result = await DocumentPicker.getDocumentAsync({
+          type: ALLOWED,
+          copyToCacheDirectory: true,
+        });
+        if (result.canceled) return;
+        const f = result.assets[0];
+        setFile({ name: f.name, uri: f.uri, mimeType: f.mimeType || "application/pdf" });
+      }
     } catch (e) {
       Alert.alert("Error", "Could not pick file.");
     }

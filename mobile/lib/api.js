@@ -50,11 +50,19 @@ export async function signup(email, password, full_name) {
 
 export async function uploadResume(file) {
   const form = new FormData();
-  form.append("file", {
-    uri: file.uri,
-    name: file.name || "resume.pdf",
-    type: file.mimeType || "application/pdf",
-  });
+  
+  if (file.file) {
+    // Web: use the actual File object
+    form.append("file", file.file);
+  } else {
+    // Mobile: use uri
+    form.append("file", {
+      uri: file.uri,
+      name: file.name || "resume.pdf",
+      type: file.mimeType || "application/pdf",
+    });
+  }
+  
   const url = `${API_BASE}/upload-resume`;
   const res = await fetch(url, { method: "POST", body: form });
   const data = await res.json().catch(() => ({}));
