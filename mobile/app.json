@@ -27,9 +27,7 @@
     },
     "scheme": "hiresense",
     "plugins": [
-      "expo-router",
-      "expo-secure-store",
-      "expo-asset"
+      "expo-router"
     ]
   }
 }
