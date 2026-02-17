@@ -1,0 +1,37 @@
+# Backend
+backend/venv/
+backend/.env
+backend/*.db
+backend/__pycache__/
+backend/**/__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Mobile
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/
+mobile/*.tsbuildinfo
+npm-debug.log*
+.expo/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+google-service-account.json
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# EAS / Build (optional; uncomment if you don't want to track)
+# mobile/eas.json
