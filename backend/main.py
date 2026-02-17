@@ -43,10 +43,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="HireSense AI API",
     version="1.0.0",
-    lifespan=lifespan,
-    docs_url="/docs",
-    redoc_url="/redoc",
-    openapi_url="/openapi.json"
+    lifespan=lifespan
 )
 
 app.add_middleware(
@@ -159,3 +156,8 @@ async def analyze_answers(
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.get("/test")
+def test():
+    return {"message": "API working"}
