@@ -40,7 +40,14 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="HireSense AI API", version="1.0", lifespan=lifespan)
+app = FastAPI(
+    title="HireSense AI API",
+    version="1.0",
+    lifespan=lifespan,
+    openapi_url="/openapi.json",
+    docs_url="/docs",
+    redoc_url="/redoc",
+)
 
 app.add_middleware(
     CORSMiddleware,
