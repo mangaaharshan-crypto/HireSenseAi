@@ -1,5 +1,10 @@
-// Use your machine IP for physical device (e.g. http://192.168.1.5:8000). Android emulator: http://10.0.2.2:8000
-export const API_BASE = "http://localhost:8000";
+// Production backend (Render)
+export const API_BASE = "https://hiresenseai-4.onrender.com";
+
+// For local testing, use one of these instead:
+// - Physical device on same Wi‑Fi: http://<YOUR_PC_IP>:8000
+// - Android emulator: http://10.0.2.2:8000
+// - iOS simulator: http://localhost:8000
 
 let token = null;
 
