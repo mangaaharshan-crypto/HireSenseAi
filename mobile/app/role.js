@@ -12,7 +12,6 @@ import {
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFlow } from "../context/FlowContext";
-import { useAuth } from "../context/AuthContext";
 import { colors } from "../constants/theme";
 
 const ROLES = [
@@ -27,7 +26,6 @@ const ROLES = [
 export default function Role() {
   const router = useRouter();
   const { setSelectedRole, selectedRole } = useFlow();
-  const { signOut } = useAuth();
   const [customRole, setCustomRole] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -78,10 +76,6 @@ export default function Role() {
           {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.btnText}>Continue</Text>}
         </LinearGradient>
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => signOut().then(() => router.replace("/login"))} style={styles.logout}>
-        <Text style={styles.logoutText}>Sign Out</Text>
-      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -114,6 +108,8 @@ const styles = StyleSheet.create({
   btnWrap: { marginTop: 16, borderRadius: 14, overflow: "hidden" },
   btn: { paddingVertical: 16, alignItems: "center", justifyContent: "center" },
   btnText: { color: "#fff", fontSize: 17, fontWeight: "600" },
+  logout: { marginTop: 24, alignItems: "center" },
+  logoutText: { color: colors.textSecondary, fontSize: 14 },
   logout: { marginTop: 24, alignItems: "center" },
   logoutText: { color: colors.textSecondary, fontSize: 14 },
 });

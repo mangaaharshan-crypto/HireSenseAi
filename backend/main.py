@@ -106,7 +106,6 @@ async def login(data: UserLogin):
 @app.post("/upload-resume", response_model=ResumeAnalysis)
 async def upload_resume(
     file: UploadFile = File(...),
-    _user: dict = Depends(get_current_user),
 ):
     if not file.filename or not check_file_type(file.filename):
         raise HTTPException(
@@ -130,7 +129,6 @@ async def upload_resume(
 @app.post("/generate-questions", response_model=GenerateQuestionsResponse)
 async def generate_questions(
     body: GenerateQuestionsRequest,
-    _user: dict = Depends(get_current_user),
 ):
     questions = await generate_questions_with_gemini(body.role, body.resume_data)
     return GenerateQuestionsResponse(questions=questions)
@@ -140,7 +138,6 @@ async def generate_questions(
 @app.post("/analyze-answers", response_model=AnalyzeAnswersResponse)
 async def analyze_answers(
     body: AnalyzeAnswersRequest,
-    _user: dict = Depends(get_current_user),
 ):
     if len(body.answers) != len(body.questions):
         raise HTTPException(

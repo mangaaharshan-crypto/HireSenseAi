@@ -56,9 +56,7 @@ export async function uploadResume(file) {
     type: file.mimeType || "application/pdf",
   });
   const url = `${API_BASE}/upload-resume`;
-  const headers = {};
-  if (token) headers["Authorization"] = `Bearer ${token}`;
-  const res = await fetch(url, { method: "POST", body: form, headers });
+  const res = await fetch(url, { method: "POST", body: form });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.detail || "Upload failed");
   return data;
