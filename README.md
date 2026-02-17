@@ -4,14 +4,23 @@ AI-powered hiring assessment: resume screening, role-based interview questions, 
 
 ## Quick start
 
+### Prerequisites
+1. Get your **Gemini API key** from: https://aistudio.google.com/apikey
+2. Add it to `backend/.env` (replace the empty GEMINI_API_KEY value)
+
 ### 1. Backend
 ```bash
 cd backend
-python -m venv venv
-venv\Scripts\activate          # Windows
-pip install -r requirements.txt
-# Set GEMINI_API_KEY in .env (copy from .env.example)
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+# Install dependencies
+python3 -m pip install --break-system-packages -r requirements.txt
+
+# Start the server
+export PATH="/home/appuser/.local/bin:$PATH"
+python3 -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+# OR use the start script:
+./start.sh
 ```
 API docs: http://localhost:8000/docs
 
@@ -19,10 +28,19 @@ API docs: http://localhost:8000/docs
 ```bash
 cd mobile
 npm install
-# Optional: set your machine IP in mobile/lib/api.js for physical device
+
+# Start Expo
 npx expo start
+
+# OR use the start script:
+./start.sh
 ```
 Then press **a** (Android) or **i** (iOS), or scan the QR code with Expo Go.
+
+**Mobile API Configuration:**
+- **Android Emulator** (default): Already configured for `http://10.0.2.2:8000`
+- **iOS Simulator**: Change API_BASE in `mobile/lib/api.js` to `http://localhost:8000`
+- **Physical Device**: Change API_BASE to `http://YOUR_COMPUTER_IP:8000` (same WiFi)
 
 ## Project structure
 

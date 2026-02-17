@@ -1,9 +1,11 @@
-// Production backend (Render)
-export const API_BASE = "https://hiresenseai-4.onrender.com";
+// Local development - Android emulator
+export const API_BASE = "http://10.0.2.2:8000";
 
-// For local testing, use one of these instead:
+// For production deployment, use:
+// export const API_BASE = "https://hiresenseai-4.onrender.com";
+
+// For other local testing options:
 // - Physical device on same Wi‑Fi: http://<YOUR_PC_IP>:8000
-// - Android emulator: http://10.0.2.2:8000
 // - iOS simulator: http://localhost:8000
 
 let token = null;
