@@ -35,3 +35,4 @@ Thumbs.db
 
 # EAS / Build (optional; uncomment if you don't want to track)
 # mobile/eas.json
+.env
