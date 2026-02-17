@@ -41,3 +41,28 @@ Then press **a** (Android) or **i** (iOS), or scan the QR code with Expo Go.
 - **iOS:** See `mobile/README.md` – use EAS Build (`eas build -p ios`); requires Apple Developer account.
 
 Replace placeholder app icon and splash in `mobile/assets/` with your HireSense AI logo before release.
+
+---
+
+## Deploy to GitHub
+
+Repo is already initialized with an initial commit. To push to GitHub:
+
+1. **Create a new repository on GitHub**  
+   Go to [github.com/new](https://github.com/new), name it e.g. `HireSenseAi`, leave it empty (no README, no .gitignore).
+
+2. **Add remote and push** (replace `YOUR_USERNAME` and `HireSenseAi` with your GitHub username and repo name):
+   ```bash
+   git remote add origin https://github.com/YOUR_USERNAME/HireSenseAi.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+   Or with SSH:
+   ```bash
+   git remote add origin git@github.com:YOUR_USERNAME/HireSenseAi.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+**Note:** `backend/.env` is not committed (it contains your Gemini API key). After cloning elsewhere, copy `backend/.env.example` to `backend/.env` and add your key.
