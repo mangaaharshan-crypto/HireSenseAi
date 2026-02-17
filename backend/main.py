@@ -42,11 +42,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="HireSense AI API",
-    version="1.0",
+    version="1.0.0",
     lifespan=lifespan,
-    openapi_url="/openapi.json",
     docs_url="/docs",
     redoc_url="/redoc",
+    openapi_url="/openapi.json"
 )
 
 app.add_middleware(
@@ -62,7 +62,7 @@ ALLOWED_EXTENSIONS = {".pdf", ".docx"}
 
 @app.get("/")
 def home():
-    return {"message": "HireSense AI backend is running"}
+    return {"message": "HireSense AI API is running"}
 
 
 def check_file_type(filename: str) -> bool:
@@ -157,5 +157,5 @@ async def analyze_answers(
 
 
 @app.get("/health")
-async def health():
+def health():
     return {"status": "ok"}
