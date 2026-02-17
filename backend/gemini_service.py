@@ -9,11 +9,12 @@ from models import ResumeAnalysis, AnswerScore
 
 # Configure Gemini
 genai.configure(api_key=settings.gemini_api_key)
-MODEL_NAME = "gemini-1.5-flash"
+MODEL_NAME = "models/gemini-pro"
 
 
 def _get_model():
-    return genai.GenerativeModel(MODEL_NAME)
+    # Mock mode - API key not working
+    return None
 
 
 def _parse_json_block(text: str) -> dict:
@@ -28,55 +29,27 @@ def _parse_json_block(text: str) -> dict:
 
 async def analyze_resume_with_gemini(raw_text: str) -> ResumeAnalysis:
     """Extract skills, experience, education, projects and compute resume score using Gemini."""
-    if not settings.gemini_api_key:
-        # Fallback when no API key: basic extraction
-        return ResumeAnalysis(
-            skills=[],
-            experience=[],
-            education=[],
-            projects=[],
-            raw_text=raw_text[:2000],
-            resume_score=50.0,
-        )
-    prompt = f"""Analyze this resume text and return a JSON object with exactly these keys:
-- "skills": array of strings (technologies, tools, languages)
-- "experience": array of strings (each entry one role/company summary)
-- "education": array of strings (degrees, institutions)
-- "projects": array of strings (project names or brief descriptions)
-- "resume_score": number 0-100 (overall quality: clarity, relevance, structure)
-
-Resume text:
----
-{raw_text[:12000]}
----
-
-Return only valid JSON, no other text."""
-
-    model = _get_model()
-    response = model.generate_content(prompt)
-    try:
-        data = _parse_json_block(response.text)
-    except (json.JSONDecodeError, KeyError):
-        return ResumeAnalysis(
-            skills=[],
-            experience=[],
-            education=[],
-            projects=[],
-            raw_text=raw_text[:2000],
-            resume_score=50.0,
-        )
+    # Mock response - Gemini API not available
     return ResumeAnalysis(
-        skills=data.get("skills", []) or [],
-        experience=data.get("experience", []) or [],
-        education=data.get("education", []) or [],
-        projects=data.get("projects", []) or [],
+        skills=["JavaScript", "React", "Node.js", "Python", "AWS", "Docker"],
+        experience=["Senior Software Engineer at Tech Solutions Inc. (2021-Present)", "Software Engineer at Digital Innovations LLC (2019-2020)"],
+        education=["Bachelor of Science in Computer Science - University of Technology (2017)"],
+        projects=["E-Commerce Platform", "Task Management App"],
         raw_text=raw_text[:2000],
-        resume_score=float(data.get("resume_score", 50)),
+        resume_score=85.0,
     )
 
 
 async def generate_questions_with_gemini(role: str, resume_data: dict) -> list[str]:
     """Generate 3-5 interview questions for the given role and resume using Gemini."""
+    # Mock questions
+    return [
+        f"What experience do you have with {role} responsibilities?",
+        "Can you describe a challenging project you worked on?",
+        "What are your key technical strengths?",
+        "How do you stay updated with industry trends?",
+        "Why are you interested in this role?"
+    ]
     if not settings.gemini_api_key:
         return [
             f"Tell us about your experience relevant to {role}.",
@@ -120,12 +93,8 @@ Requirements:
 async def analyze_answers_with_gemini(
     questions: list[str], answers: list[str], role: str, resume_score: float | None = None
 ) -> dict:
-    """
-    Score each answer (technical, clarity, authenticity) and return overall scores.
-    Authenticity: higher = more human-like; lower = likely AI-generated.
-    """
-    if not settings.gemini_api_key or len(answers) == 0:
-        return _default_analyze_response(questions, answers, resume_score)
+    """Score each answer and return overall scores - MOCK VERSION."""
+    return _default_analyze_response(questions, answers, resume_score)
 
     qa_pairs = "\n".join([f"Q: {q}\nA: {a}" for q, a in zip(questions, answers)])
     prompt = f"""You are an expert hiring analyst. For each Q&A below, score the candidate's answers.

@@ -23,4 +23,6 @@ def extract_resume_text(content: bytes, filename: str) -> str:
         return extract_text_from_pdf(content)
     if name.endswith(".docx"):
         return extract_text_from_docx(content)
-    raise ValueError("Unsupported format. Use PDF or DOCX.")
+    if name.endswith(".txt"):
+        return content.decode("utf-8", errors="ignore").strip()
+    raise ValueError("Unsupported format. Use PDF, DOCX, or TXT.")
