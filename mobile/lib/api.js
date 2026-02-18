@@ -1,5 +1,8 @@
-// Local development - Android emulator
-export const API_BASE = "http://10.0.2.2:8000";
+// Local development - Web/Mobile
+export const API_BASE = "http://localhost:8000";
+
+// For Android emulator specifically:
+// export const API_BASE = "http://10.0.2.2:8000";
 
 // For production deployment, use:
 // export const API_BASE = "https://hiresenseai-4.onrender.com";
@@ -64,7 +67,10 @@ export async function uploadResume(file) {
   }
   
   const url = `${API_BASE}/upload-resume`;
-  const res = await fetch(url, { method: "POST", body: form });
+  const headers = {};
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+  
+  const res = await fetch(url, { method: "POST", body: form, headers });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.detail || "Upload failed");
   return data;

@@ -1,0 +1,35 @@
+{
+  "name": "hiresense-ai",
+  "version": "1.0.0",
+  "description": "AI-powered hiring platform with resume analysis and interview preparation",
+  "main": "mobile/app/index.js",
+  "scripts": {
+    "start": "cd mobile && npm start",
+    "build": "cd mobile && expo build:web",
+    "deploy": "vercel --prod",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && uvicorn main:app --host 0.0.0.0 --port 8000 --reload",
+    "frontend": "cd mobile && npm start"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mangaaharshan-crypto/HireSenseAi.git"
+  },
+  "keywords": [
+    "ai",
+    "hiring",
+    "resume-analysis",
+    "interview-preparation",
+    "groq",
+    "machine-learning"
+  ],
+  "author": "HireSense AI Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

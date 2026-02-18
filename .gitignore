@@ -36,3 +36,12 @@ Thumbs.db
 # EAS / Build (optional; uncomment if you don't want to track)
 # mobile/eas.json
 .env
+
+# Deployment
+.vercel
+dist/
+web-build/
+api/__pycache__/
+logs/
+*.tmp
+*.temp
