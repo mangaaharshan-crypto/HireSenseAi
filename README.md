@@ -1,6 +1,6 @@
 # HireSense AI
 
-AI-powered hiring assessment: resume screening, role-based interview questions, and candidate scoring (with authenticity detection). Built with **FastAPI + Gemini** (backend) and **Expo / React Native** (mobile for Android & iOS).
+AI-powered hiring assessment: resume screening, role-based interview questions, and candidate scoring (with authenticity detection). Built with **FastAPI + Gemini** (backend), **React Web App** (web), and **Expo / React Native** (mobile for Android & iOS).
 
 ## Quick start
 
@@ -24,7 +24,17 @@ python3 -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 API docs: http://localhost:8000/docs
 
-### 2. Mobile app
+### 2. Web app
+```bash
+cd web
+npm install
+
+# Start web dev server
+npm run dev
+```
+Visit http://localhost:5173
+
+### 3. Mobile app (optional)
 ```bash
 cd mobile
 npm install
@@ -47,6 +57,7 @@ Then press **a** (Android) or **i** (iOS), or scan the QR code with Expo Go.
 | Folder    | Description                    |
 |-----------|--------------------------------|
 | `backend/`| FastAPI + Gemini API           |
+| `web/`    | React web application (Vite)   |
 | `mobile/` | Expo React Native app (Android & iOS) |
 
 ## App flow
