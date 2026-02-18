@@ -27,10 +27,10 @@ from models import (
     AnalyzeAnswersResponse,
 )
 from resume_parser import extract_resume_text
-from gemini_service import (
-    analyze_resume_with_gemini,
-    generate_questions_with_gemini,
-    analyze_answers_with_gemini,
+from groq_service import (
+    analyze_resume_with_groq,
+    generate_questions_with_groq,
+    analyze_answers_with_groq,
 )
 
 
@@ -121,7 +121,7 @@ async def upload_resume(
         raise HTTPException(status_code=400, detail=f"Could not read file: {str(e)}")
     if not raw_text or len(raw_text.strip()) < 50:
         raise HTTPException(status_code=400, detail="Could not extract enough text from the file")
-    analysis = await analyze_resume_with_gemini(raw_text)
+    analysis = await analyze_resume_with_groq(raw_text)
     return analysis
 
 
@@ -130,7 +130,7 @@ async def upload_resume(
 async def generate_questions(
     body: GenerateQuestionsRequest,
 ):
-    questions = await generate_questions_with_gemini(body.role, body.resume_data)
+    questions = await generate_questions_with_groq(body.role, body.resume_data)
     return GenerateQuestionsResponse(questions=questions)
 
 
@@ -144,7 +144,7 @@ async def analyze_answers(
             status_code=400,
             detail="Number of answers must match number of questions",
         )
-    result = await analyze_answers_with_gemini(
+    result = await analyze_answers_with_groq(
         body.questions,
         body.answers,
         body.role,
